@@ -1,0 +1,131 @@
+//Project d'un repertoire en language C <Non terminé>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct contact
+{
+    char Nom[100];
+    char numTel[20];
+    char adressPostale[20];                     //initialisation de notre structure
+    char numeroRue[20];
+    char nomRue[255];
+};
+struct contact personne1 = {"Jean", "0664756235", "44120", "31", "rue des potier"};
+struct contact personne2 = {"moulin", "0645723512", "44800", "32", "rue des herbes"};       //structure de test saisie manuelllement
+struct contact personne3 = {"Risitas", "0642214562", "44520", "33", "rue issou"};
+struct contact personne;
+char *ptrNom[100], *ptrNomRue[100], *ptrNumTel[100], *ptrAdressPostale[100], *ptrNumeroRue[100];    //pointeurs de test (ne pas s'étonner d'en trouver une moitier dans une fonction
+
+typedef struct contact PERS;        //initialisation d'un type PERs issue de notre structure conctact
+
+
+
+void saisir_contact(PERS rep[],int nb_pers)          //fonction pour saisir nos contactes
+{
+  
+  for(int i = 0; i < nb_pers; i++){
+    printf("Entrer le nom de votre contact: ");
+  //fgets(personne.Nom, 100, stdin);
+  scanf("%s", &(rep[i].Nom));
+  ptrNom[i] = rep[i].Nom;
+  getchar();
+
+  printf("\nEntrer son numero de telephone: ");
+  scanf("%s", &(rep[i].numTel));
+
+  getchar();
+
+  printf("\nEntrer son adresse postale: ");
+  scanf("%s", &(rep[i].adressPostale));                             //on definie notre receptoir en fonction du rang dans du tableau
+  ptrAdressPostale[i] = rep[i].adressPostale;
+  getchar();
+
+  printf("\nEntrer son numero de rue: ");
+  scanf("%s", &(rep[i].numeroRue));
+  ptrNumeroRue[i] = rep[i].numeroRue;
+  getchar();
+
+  printf("\nEntrer le nom de sa rue: ");
+  //fgets(*personne.nomRue, sizeof personne.nomRue, stdin);
+  scanf("%s", &(rep[i].nomRue));
+  ptrNomRue[i] = rep[i].nomRue;
+  getchar();
+  }
+
+}
+
+
+void *saisir_repertoir(PERS *rep[], int nb_pers)             //fonction pour saisir les personnes du repertoir
+{
+    int i;
+
+    for (i = 0; i < nb_pers; i++)
+    {
+        saisir_contact(&rep[i], nb_pers);
+
+
+    }
+    afficher_repertoir(rep, nb_pers);
+}
+
+
+
+
+
+
+
+void afficher_repertoir(PERS rep[100], int nb_pers)                //fonction pour afficher lles personnes du repertoir
+{
+    for(int i = 0; i < nb_pers ; i++)
+    {
+        printf("\n---------------------------------------------------\n");
+        printf("Nom : %s\n", &rep[i].Nom);                                               //permet d'afficher le tableau de mes contacts
+        printf("Numero de telephone : %s\n", &rep[i].numTel);
+        printf("Adresse postale :%s\n", &rep[i].adressPostale);
+        printf("Adresse : %s %s\n",&rep[i].numeroRue, rep[i].nomRue);
+    }
+
+
+}
+
+void chercher_contact()
+{
+    int i;
+}
+
+int main() {
+
+PERS rep[100];
+int choix;
+int nb_pers = 1;
+printf("Saisir le nombre de contact:\n");
+scanf("%d", &nb_pers);
+saisir_repertoir(&rep, nb_pers);
+
+do
+{
+  do
+  {
+      printf("\nMENU REPERTOIR:\n");
+      printf("1 : Afficher le contenu du repertoir\n");
+      printf("2 : Chercher le numero d'un contact\n");
+      printf("3 : Quitter le programme\n");
+      printf("Quel est votre choix\n");
+      scanf("%d", &choix);
+  }
+  while(choix < 1 || choix > 3);
+  switch (choix)
+  {
+     case 1 : afficher_repertoir(&rep, nb_pers);
+     break;
+     case 2 : chercher_contact();
+     default : break;
+     
+  }
+}
+while (choix != 3);
+  return 0;
+}
+
