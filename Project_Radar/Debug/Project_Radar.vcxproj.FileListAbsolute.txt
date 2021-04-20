@@ -1,0 +1,2 @@
+C:\Users\Spaz\source\repos\Project_Radar\Debug\Project_Radar.exe
+C:\Users\Spaz\source\repos\Project_Radar\Debug\Project_Radar.pdb
